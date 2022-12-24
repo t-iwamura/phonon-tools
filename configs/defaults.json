@@ -1,0 +1,6 @@
+{
+    "calc_dir": "/home/iwamura/phonon-tools/data/outputs/paramagnetic_Fe/fcc_for_upho",
+    "inputs_dir": "/home/iwamura/phonon-tools/data/inputs/paramagnetic_Fe/single_point",
+    "mode": "preprocess",
+    "use_upho": true
+}

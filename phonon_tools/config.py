@@ -7,6 +7,8 @@ from dataclasses_json import dataclass_json
 @dataclass_json
 @dataclass
 class Config:
+    calc_dir: str
+    inputs_dir: str
     mode: str
     use_upho: bool = False
 
