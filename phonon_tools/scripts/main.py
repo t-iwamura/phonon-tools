@@ -1,3 +1,6 @@
+import shutil
+from pathlib import Path
+
 import click
 
 from phonon_tools.config import load_config
@@ -10,7 +13,10 @@ def main(config_file) -> None:
     "Useful tools to perform phonon calculation by DFT"
     config = load_config(config_file)
 
-    if config.mode == "preprocess":
+    if config.mode == "relax":
+        relax_dir_path = Path(config.calc_dir) / "relax"
+        shutil.copytree(config.inputs_dir, relax_dir_path)
+    elif config.mode == "preprocess":
         arrange_disp_set_dir(
             calc_dir=config.calc_dir,
             inputs_dir=config.inputs_dir,
