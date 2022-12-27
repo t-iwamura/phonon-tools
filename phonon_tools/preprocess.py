@@ -1,6 +1,7 @@
 import os
 import shutil
 import subprocess
+from copy import copy
 from pathlib import Path
 
 
@@ -59,7 +60,8 @@ def arrange_disp_set_dir(
         poscar_id = poscar_path.stem.split("-")[-1]
         disp_dir_path = disp_set_dir_path / f"disp-{poscar_id}"
         disp_dir_path.mkdir()
-        shutil.move(poscar_path, disp_dir_path / "POSCAR")
+        new_poscar_path = disp_dir_path / "POSCAR"
+        shutil.move(poscar_path, new_poscar_path)
 
         incar_src_path = Path(inputs_dir) / "INCAR"
         incar_path = disp_dir_path / "INCAR"
@@ -72,3 +74,18 @@ def arrange_disp_set_dir(
         potcar_src_path = Path(inputs_dir) / "POTCAR"
         potcar_path = disp_dir_path / "POTCAR"
         shutil.copyfile(potcar_src_path, potcar_path)
+
+        if not use_upho:
+            continue
+
+        with new_poscar_path.open("r") as f:
+            old_poscar_lines = [line.strip() for line in f]
+
+        new_poscar_lines = copy(old_poscar_lines)
+        symbol = old_poscar_lines[5]
+        new_poscar_lines[5] = f"{symbol} {symbol}"
+        n_atoms_half = int(old_poscar_lines[6]) // 2
+        new_poscar_lines[6] = f"{n_atoms_half} {n_atoms_half}"
+
+        with new_poscar_path.open("w") as f:
+            f.write("".join(new_poscar_lines))
