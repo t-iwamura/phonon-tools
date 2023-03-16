@@ -22,6 +22,7 @@ def main(config_file) -> None:
             calc_dir=config.calc_dir,
             inputs_dir=config.inputs_dir,
             use_upho=config.use_upho,
+            use_mlp=config.use_mlp,
         )
     elif config.mode == "postprocess":
         make_force_constants(

@@ -30,7 +30,7 @@ def make_disp_conf(use_upho: bool = False) -> str:
 
 
 def arrange_disp_set_dir(
-    calc_dir: str, inputs_dir: str, use_upho: bool = False
+    calc_dir: str, inputs_dir: str, use_upho: bool = False, use_mlp: bool = False
 ) -> None:
     """Arrange disp_set directory
 
@@ -38,6 +38,8 @@ def arrange_disp_set_dir(
         calc_dir (str): Path to calculation directory.
         inputs_dir (str): Path to inputs directory.
         use_upho (bool, optional): Whether to use UPHO or not. Defaults to False.
+        use_mlp (bool, optional): Whether to use machine learning potential or not.
+            Defaults to False.
     """
     calc_dir_path = Path(calc_dir)
     disp_set_dir_path = calc_dir_path / "disp_set"
@@ -62,6 +64,9 @@ def arrange_disp_set_dir(
         disp_dir_path.mkdir()
         new_poscar_path = disp_dir_path / "POSCAR"
         shutil.move(poscar_path, new_poscar_path)
+
+        if use_mlp:
+            continue
 
         incar_src_path = Path(inputs_dir) / "INCAR"
         incar_path = disp_dir_path / "INCAR"
