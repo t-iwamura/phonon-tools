@@ -10,6 +10,7 @@ class Config:
     calc_dir: str
     inputs_dir: str
     mode: str
+    use_mlp: bool = False
     use_upho: bool = False
 
 
