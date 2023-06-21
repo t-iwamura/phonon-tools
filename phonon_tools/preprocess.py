@@ -93,4 +93,4 @@ def arrange_disp_set_dir(
         new_poscar_lines[6] = f"{n_atoms_half} {n_atoms_half}"
 
         with new_poscar_path.open("w") as f:
-            f.write("".join(new_poscar_lines))
+            f.write("\n".join(new_poscar_lines))
