@@ -33,7 +33,7 @@ def make_writefc_conf(use_upho: bool = False) -> str:
 def make_force_constants(
     calc_dir: str, inputs_dir: str, use_upho: bool = False
 ) -> None:
-    """Make FORCE_CONSTANTS file in calc_dir/postprocess
+    """Make FORCE_CONSTANTS file to calc_dir/postprocess
 
     Args:
         calc_dir (str): The path to calculation directory.
@@ -47,7 +47,7 @@ def make_force_constants(
         disp_dir_path for disp_dir_path in disp_set_dir_path.glob("disp-???")
     ]
     for disp_dir_path in disp_dir_path_list:
-        dest_dir_path = postprocess_dir_path / disp_dir_path.stem
+        dest_dir_path = postprocess_dir_path / disp_dir_path.name
         if not dest_dir_path.exists():
             dest_dir_path.mkdir(parents=True)
 
@@ -62,7 +62,7 @@ def make_force_constants(
     os.chdir(postprocess_dir_path)
     cmd_args = ["phonopy", "-f"]
     vasprun_xml_list = [
-        str(postprocess_dir_path / disp_dir_path.stem / "vasprun.xml")
+        str(postprocess_dir_path / disp_dir_path.name / "vasprun.xml")
         for disp_dir_path in disp_dir_path_list
     ]
     vasprun_xml_list.sort()
